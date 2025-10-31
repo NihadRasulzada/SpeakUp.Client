@@ -1,4 +1,4 @@
-namespace SpeakUp.WebApp.Infrastructure.Services;
+namespace BlazorSozluk.WebApp.Infrastructure.Services;
 
 public class IdentityService : IIdentityService
 {
