@@ -14,4 +14,10 @@ global using Microsoft.AspNetCore.Components.Web;
 global using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 global using SpeakUp.WebApp;
 global using SpeakUp.WebApp.Infrastructure.Services;
+global using System.Security.Claims;
+global using Microsoft.AspNetCore.Components.Authorization;
+global using System.IdentityModel.Tokens.Jwt;
+global using SpeakUp.WebApp.Infrastructure.Auth;
+
+
 

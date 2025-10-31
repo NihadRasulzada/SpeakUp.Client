@@ -1,4 +1,4 @@
-namespace SpeakUp.WebApp.Infrastructure.Services;
+namespace BlazorSozluk.WebApp.Infrastructure.Services;
 
 public class IdentityService : IIdentityService
 {
@@ -9,14 +9,14 @@ public class IdentityService : IIdentityService
 
     private readonly HttpClient httpClient;
     private readonly ISyncLocalStorageService syncLocalStorageService;
-    // private readonly AuthenticationStateProvider authenticationStateProvider;
+    private readonly AuthenticationStateProvider authenticationStateProvider;
 
 
-    public IdentityService(HttpClient httpClient, ISyncLocalStorageService syncLocalStorageService)
+    public IdentityService(HttpClient httpClient, ISyncLocalStorageService syncLocalStorageService, AuthenticationStateProvider authenticationStateProvider)
     {
         this.httpClient = httpClient;
         this.syncLocalStorageService = syncLocalStorageService;
-        // this.authenticationStateProvider = authenticationStateProvider;
+        this.authenticationStateProvider = authenticationStateProvider;
     }
 
 
@@ -65,7 +65,7 @@ public class IdentityService : IIdentityService
             syncLocalStorageService.SetUsername(response.UserName);
             syncLocalStorageService.SetUserId(response.Id);
 
-            // ((AuthStateProvider)authenticationStateProvider).NotifyUserLogin(response.UserName, response.Id);
+            ((AuthStateProvider)authenticationStateProvider).NotifyUserLogin(response.UserName, response.Id);
 
             httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("bearer", response.Token);
 
@@ -81,7 +81,7 @@ public class IdentityService : IIdentityService
         syncLocalStorageService.RemoveItem(LocalStorageExtension.UserName);
         syncLocalStorageService.RemoveItem(LocalStorageExtension.UserId);
 
-        // ((AuthStateProvider)authenticationStateProvider).NotifyUserLogout();
+        ((AuthStateProvider)authenticationStateProvider).NotifyUserLogout();
         httpClient.DefaultRequestHeaders.Authorization = null;
     }
 }
