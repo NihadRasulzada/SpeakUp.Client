@@ -4,10 +4,15 @@ var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
-builder.Services.AddHttpClient("WebApiClient", client => { client.BaseAddress = new Uri("http://localhost:8080"); })
+
+
+builder.Services.AddHttpClient("WebApiClient", client =>
+    {
+        client.BaseAddress = new Uri("http://localhost:8080");
+    })
     .AddHttpMessageHandler<AuthTokenHandler>();
 
-builder.Services.AddScoped(sp =>
+builder.Services.AddScoped(sp => 
 {
     var clientFactory = sp.GetRequiredService<IHttpClientFactory>();
     return clientFactory.CreateClient("WebApiClient");
